@@ -57,7 +57,7 @@ def main():
 
     print(_as_df(lowest_quality_labels[:10]))
 
-    baseline_model = LogisticRegression(max_iter=400)  # note we first re-instantiate the model
+    baseline_model = LogisticRegression(max_iter=400)
     baseline_model.fit(X=train_texts, y=train_labels)
 
     preds = baseline_model.predict(test_texts)
