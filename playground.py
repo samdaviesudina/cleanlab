@@ -57,6 +57,19 @@ def main():
 
     print(_as_df(lowest_quality_labels[:10]))
 
+    baseline_model = LogisticRegression(max_iter=400)  # note we first re-instantiate the model
+    baseline_model.fit(X=train_texts, y=train_labels)
+
+    preds = baseline_model.predict(test_texts)
+    acc_og = accuracy_score(test_labels, preds)
+    print(f"\n Test accuracy of original model: {acc_og}")
+
+    cl.fit(X=train_texts, labels=train_labels, label_issues=cl.get_label_issues())
+
+    pred_labels = cl.predict(test_texts)
+    acc_cl = accuracy_score(test_labels, pred_labels)
+    print(f"Test accuracy of cleanlab's model: {acc_cl}")
+
 
 if __name__ == "__main__":
     main()
