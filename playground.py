@@ -1,8 +1,6 @@
-import re
-import string
 import pandas as pd
 from sklearn.metrics import accuracy_score
-from sklearn.model_selection import train_test_split, cross_val_predict
+from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from sklearn.linear_model import LogisticRegression
 from sentence_transformers import SentenceTransformer
@@ -12,6 +10,23 @@ from cleanlab.lexical_quality import LexicalQuality
 
 
 def main():
+    """
+    This is a modified version of the example in the Cleanlab docs provided here:
+    https://docs.cleanlab.ai/master/tutorials/clean_learning/text.html
+
+    I've added a very primitive notion of a score for lexical quality and use this score
+    to crudely inform the model's confidence.
+
+    The lexical quality score is currently calculated before encoding the text into vectors.
+    I don't know whether there is a way of calculating it after — I have assumed not.
+    This means that the quality scores must be passed into the `find_label_issues()` method
+    alongside the encoded text.
+
+    However, I have expanded the Cleanlab framework by adding a lexical quality calculator,
+    which means that the caller only has to create a LexicalQuality instance and call
+    `calculate_lexical_quality_scores()`, as seen below.
+    """
+
     data = pd.read_csv("./banking-intent-classification.csv")
 
     raw_texts, raw_labels = data["text"].values, data["label"].values
@@ -33,9 +48,6 @@ def main():
     lexical_quality = LexicalQuality()
 
     lexical_quality_scores = lexical_quality.calculate_lexical_quality_scores(raw_train_texts)
-    print(lexical_quality_scores)
-
-    return
 
     transformer = SentenceTransformer("google/electra-small-discriminator")
 

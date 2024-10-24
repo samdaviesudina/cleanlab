@@ -1,8 +1,6 @@
-import re
-import string
 import pandas as pd
 from sklearn.metrics import accuracy_score
-from sklearn.model_selection import train_test_split, cross_val_predict
+from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from sklearn.linear_model import LogisticRegression
 from sentence_transformers import SentenceTransformer
@@ -11,6 +9,14 @@ from cleanlab.classification import CleanLearning
 
 
 def main():
+    """
+    This is just an implementation of the example provided in the Cleanlab docs here:
+    https://docs.cleanlab.ai/master/tutorials/clean_learning/text.html
+
+    NB: the improvement in accuracy isn't reliably replicable. If you run this script
+    multiple times, you'll often get the cleanlab model performing worse than the original.
+    """
+
     data = pd.read_csv("./banking-intent-classification.csv")
 
     raw_texts, raw_labels = data["text"].values, data["label"].values
