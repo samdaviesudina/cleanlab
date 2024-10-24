@@ -1,17 +1,15 @@
-import pandas as pd
+from dataclasses import dataclass
+
 import numpy as np
+from spellchecker import SpellChecker
 
 
-def sigmoid(x):
-    return 1 / (1 + np.exp(-x))
+@dataclass
+class LexicalQuality:
+    spellchecker: SpellChecker
 
+    def calculate_lexical_quality_scores(self, texts: np.ndarray) -> np.ndarray:
+        return np.vectorize(self.calculate_lexical_quality_score)(texts)
 
-def calculate_lexical_quality_scores(texts: np.ndarray) -> pd.DataFrame:
-    vectorized_sigmoid = np.vectorize(sigmoid)
-    vectorized_lexical_quality_score_calculation = np.vectorize(calculate_lexical_quality_score)
-
-    return vectorized_sigmoid(vectorized_lexical_quality_score_calculation(texts))
-
-
-def calculate_lexical_quality_score(text: str) -> float:
-    return len(text)
+    def calculate_lexical_quality_score(text: str) -> float:
+        return len(text)
