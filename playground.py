@@ -20,6 +20,9 @@ def main():
     )
     num_classes = len(set(raw_train_labels))
 
+    print(f"This dataset has {num_classes} classes.")
+    print(f"Classes: {set(raw_train_labels)}")
+
     encoder = LabelEncoder()
     encoder.fit(raw_train_labels)
 
