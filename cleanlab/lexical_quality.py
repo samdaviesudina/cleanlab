@@ -14,5 +14,4 @@ def calculate_lexical_quality_scores(texts: np.ndarray) -> pd.DataFrame:
 
 
 def calculate_lexical_quality_score(text: str) -> float:
-    print(len(text))
     return len(text)
