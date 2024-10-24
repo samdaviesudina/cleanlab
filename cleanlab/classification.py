@@ -696,6 +696,7 @@ class CleanLearning(BaseEstimator):  # Inherits sklearn classifier
     def find_label_issues(
         self,
         X=None,
+        lexical_quality_scores=None,
         labels=None,
         *,
         pred_probs=None,
@@ -759,6 +760,7 @@ class CleanLearning(BaseEstimator):  # Inherits sklearn classifier
         """
 
         # Check inputs
+        # TODO: pass `lexical_quality_scores` into `assert_valid_inputs`
         assert_valid_inputs(X, labels, pred_probs)
         labels = labels_to_array(labels)
         if noise_matrix is not None and np.trace(noise_matrix) <= 1:
