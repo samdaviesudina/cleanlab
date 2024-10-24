@@ -14,7 +14,7 @@ def main():
     https://docs.cleanlab.ai/master/tutorials/clean_learning/text.html
 
     NB: the improvement in accuracy isn't reliably replicable. If you run this script
-    multiple times, you'll often get the cleanlab model performing worse than the original.
+    multiple times, you'll often get the Cleanlab model performing worse than the original.
     """
 
     data = pd.read_csv("./banking-intent-classification.csv")
