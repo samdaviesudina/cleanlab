@@ -34,7 +34,7 @@ def main():
     model = LogisticRegression(max_iter=400)
 
     cv_n_folds = 5
-    cl = CleanLearning(model, cv_n_folds=cv_n_folds)
+    cl = CleanLearning(model, cv_n_folds=cv_n_folds, verbose=True)
 
     label_issues = cl.find_label_issues(X=train_texts, labels=train_labels)
 
