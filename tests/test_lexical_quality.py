@@ -22,9 +22,9 @@ def test_higher_scores_correspond_to_better_text():
     worse_text = "This bit of tekst is prettie gud, though it haz many misteaks."
 
     lexical_quality = LexicalQuality()
+
     better_text_score = lexical_quality._calculate_lexical_quality_score(better_text)
     worse_text_score = lexical_quality._calculate_lexical_quality_score(worse_text)
-
     assert 0 < worse_text_score
     assert worse_text_score < better_text_score
     assert better_text_score < 1
