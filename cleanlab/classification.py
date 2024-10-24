@@ -696,6 +696,7 @@ class CleanLearning(BaseEstimator):  # Inherits sklearn classifier
     def find_label_issues(
         self,
         X=None,
+        lexical_quality_scores=None,
         labels=None,
         *,
         pred_probs=None,
@@ -759,6 +760,7 @@ class CleanLearning(BaseEstimator):  # Inherits sklearn classifier
         """
 
         # Check inputs
+        # TODO: pass `lexical_quality_scores` into `assert_valid_inputs`
         assert_valid_inputs(X, labels, pred_probs)
         labels = labels_to_array(labels)
         if noise_matrix is not None and np.trace(noise_matrix) <= 1:
@@ -932,6 +934,13 @@ class CleanLearning(BaseEstimator):  # Inherits sklearn classifier
             labels = labels_to_array(labels)
             if self.verbose:
                 print("Using predicted probabilities to identify label issues ...")
+
+            if lexical_quality_scores is not None:
+                # Scale each probability by the lexical quality score for the corresponding text,
+                # regardless of which label the probability is for. This is a very crude method;
+                # realistically we'd want a more nuanced and forgiving method.
+                pred_probs = pred_probs * np.array(lexical_quality_scores).reshape(-1, 1)
+
             label_issues_mask = filter.find_label_issues(
                 labels,
                 pred_probs,

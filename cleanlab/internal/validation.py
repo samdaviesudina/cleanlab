@@ -35,6 +35,7 @@ def assert_valid_inputs(
     allow_one_class: bool = False,
 ) -> None:
     """Checks that ``X``, ``labels``, ``pred_probs`` are correctly formatted."""
+    # TODO: pass `lexical_quality_scores` into here and check they also are correctly formatted.
     if not isinstance(y, (list, np.ndarray, np.generic, pd.Series, pd.DataFrame)):
         raise TypeError("labels should be a numpy array or pandas Series.")
     if not multi_label:

@@ -18,3 +18,4 @@ typing-extensions>=4.8.0
 wget
 matplotlib
 pillow
+pyspellchecker
