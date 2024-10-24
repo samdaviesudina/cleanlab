@@ -8,7 +8,7 @@ from sklearn.linear_model import LogisticRegression
 from sentence_transformers import SentenceTransformer
 
 from cleanlab.classification import CleanLearning
-from cleanlab.lexical_quality import calculate_lexical_quality_scores
+from cleanlab.lexical_quality import LexicalQuality
 
 
 def main():
@@ -30,7 +30,9 @@ def main():
     train_labels = encoder.transform(raw_train_labels)
     test_labels = encoder.transform(raw_test_labels)
 
-    lexical_quality_scores = calculate_lexical_quality_scores(raw_train_texts)
+    lexical_quality = LexicalQuality()
+
+    lexical_quality_scores = lexical_quality.calculate_lexical_quality_scores(raw_train_texts)
     print(lexical_quality_scores)
 
     return
